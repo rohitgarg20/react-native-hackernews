@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
 
 const fetchTS = async cb => {
   const result = await fetch('https://hacker-news.firebaseio.com/v0/topstories.json', { method: 'GET', headers: { Accept: 'application/json', 'Content-type': 'application/json'}, },);
@@ -24,6 +24,7 @@ export default function App() {
   if (ts) {
     return (
       <View style={{flex: 1}}>
+        <ScrollView>
         {ts.map(s => (
           <View style={{ padding: 4, }}>
             <Text>{s.title}</Text>
@@ -48,6 +49,7 @@ export default function App() {
             </View>
           </View>
         ))}
+        </ScrollView>
       </View>
     );
   } else {
