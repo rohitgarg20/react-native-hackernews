@@ -1,12 +1,21 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
+import {NewsListComponent} from './src/components/NewsListComponent';
 
 const fetchTS = async cb => {
-  const result = await fetch('https://hacker-news.firebaseio.com/v0/topstories.json', { method: 'GET', headers: { Accept: 'application/json', 'Content-type': 'application/json'}, },);
+  const result = await fetch(
+    'https://hacker-news.firebaseio.com/v0/topstories.json',
+    {
+      method: 'GET',
+      headers: {Accept: 'application/json', 'Content-type': 'application/json'},
+    },
+  );
   const json = await result.json();
   const stories = await Promise.all(
     json.map(async id => {
-      const res = await fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`);
+      const res = await fetch(
+        `https://hacker-news.firebaseio.com/v0/item/${id}.json`,
+      );
       const comments = res.json();
       return comments;
     }),
@@ -15,16 +24,16 @@ const fetchTS = async cb => {
 };
 
 export default function App() {
-  const [ts, setTS] = useState();
+  // const [ts, setTS] = useState();
 
-  useEffect(() => {
-    fetchTS(stories => {setTS(stories);});
-  });
+  // useEffect(() => {
+  //   fetchTS(stories => {setTS(stories);});
+  // });
 
-  if (ts) {
+  if (true) {
     return (
       <View style={{flex: 1}}>
-        <ScrollView>
+        {/* <ScrollView>
         {ts.map(s => (
           <View style={{ padding: 4, }}>
             <Text>{s.title}</Text>
@@ -49,7 +58,8 @@ export default function App() {
             </View>
           </View>
         ))}
-        </ScrollView>
+        </ScrollView> */}
+        <NewsListComponent />
       </View>
     );
   } else {
